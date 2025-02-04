@@ -1,0 +1,41 @@
+<div class="weather-container">
+  <h1>Coritiba</h1>
+  <mat-card *ngIf="weatherData" class="weather-card">
+    <mat-card-title>Current Weather</mat-card-title>
+    <mat-card-content>
+      <div class="weather-info">
+        <div class="weather-info-item">
+          <fa-icon [icon]="'temperature-high'" class="icon"></fa-icon>
+          <strong>Temperature:</strong> {{ weatherData.temperature }}
+        </div>
+        <div class="weather-info-item">
+          <fa-icon [icon]="'wind'" class="icon"></fa-icon>
+          <strong>Wind:</strong> {{ weatherData.wind }}
+        </div>
+        <div class="weather-info-item">
+          <fa-icon [icon]="'cloud-rain'" class="icon"></fa-icon>
+          <strong>Description:</strong> {{ weatherData.description }}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+
+  <mat-card *ngIf="weatherData" class="forecast-card">
+    <mat-card-title>Forecast</mat-card-title>
+    <mat-card-content>
+      <div class="forecast-grid">
+        <div *ngFor="let forecast of weatherData.forecast" class="forecast-item">
+          <fa-icon [icon]="'sun'" class="icon"></fa-icon>
+          <strong>Day {{ forecast.day }}</strong>
+          <p>Temperature: {{ forecast.temperature }}</p>
+          <p>Wind: {{ forecast.wind }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!weatherData" class="loading-card">
+    <mat-card-content>Loading weather data... Please wait!</mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,106 @@
+/* Allmänna stilar */
+body, h1, h2, p, ul {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #4a90e2;
+}
+
+p, li {
+  font-size: 1rem;
+  color: #555;
+}
+
+.container, .weather-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Kortkomponenter */
+mat-card {
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+mat-card-content p {
+  margin: 0.5rem 0;
+}
+
+/* Ikoner */
+.icon {
+  color: #ff9800;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Flexbox för Weather Info */
+.weather-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.weather-info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Grid för Prognoser */
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.forecast-item {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.forecast-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsivitet */
+@media screen and (max-width: 768px) {
+  .forecast-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .forecast-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .weather-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
