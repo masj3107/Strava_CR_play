@@ -11,5 +11,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'MyFrontend';
+  title = 'Strava_CR_play';
 }
