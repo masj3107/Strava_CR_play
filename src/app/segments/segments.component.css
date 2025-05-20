@@ -26,19 +26,21 @@ table {
   /* Stil för rubriken */
 .table-title {
     text-align: center;
-    font-size: 1.8rem;
-    margin: 20px 0;
+    font-size: 2rem;
+    margin: 0 0 24px;
     color: #3f51b5;
+    font-weight: 500;
+    letter-spacing: 0.5px;
   }
   
   /* Grundläggande stil för tabellen */
   .styled-table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 1rem;
-    text-align: left;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
   }
   
   /* Header-stil */
@@ -51,7 +53,9 @@ table {
   
   .styled-table th,
   .styled-table td {
-    padding: 12px 15px;
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 0.95rem;
   }
   
   /* Alternativa rader */
@@ -61,41 +65,53 @@ table {
   
   /* Hover-effekt */
   .styled-table tbody tr:hover {
-    background-color: #f1f1f1;
-    transform: scale(1.02);
+    background-color: rgba(63, 81, 181, 0.05);
+    transform: scale(1.01);
     transition: all 0.2s ease-in-out;
   }
   
   /* Länkar */
   .styled-table a {
-    color: #007bff;
+    color: #3f51b5;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    transition: color 0.2s ease;
   }
   
   .styled-table a:hover {
-    text-decoration: underline;
+    color: #5c6bc0;
   }
   
   /* Typ-indikator */
   .type {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  
+  .type[data-type="Run"] {
     background-color: #4caf50;
+    color: white;
   }
   
   .type[data-type="Nordic Ski"] {
     background-color: #ff9800;
+    color: white;
   }
   
   /* Ikoner */
   mat-icon {
-    color: #3f51b5;
-    font-size: 1.5rem;
     vertical-align: middle;
+    margin-right: 8px;
+  }
+  
+  .styled-table mat-icon {
+    font-size: 1.2rem;
+    width: 20px;
+    height: 20px;
   }
   
   .summary {
@@ -124,76 +140,328 @@ table {
   
   /* Styling för rubrik */
 .summary-grid {
-    margin: 20px 0;
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 24px;
   }
   
   .summary-grid h2 {
     text-align: center;
     color: #3f51b5;
-    margin-bottom: 15px;
+    margin-bottom: 24px;
+    font-size: 1.6rem;
+    font-weight: 500;
   }
   
   /* Grid layout */
   .grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsiv kolumn-layout */
-    gap: 10px;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 8px 0;
   }
   
   .grid-item {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: #f5f7fa;
+    border-radius: 16px;
+    padding: 28px 24px 18px 24px; /* more top padding */
+    box-shadow: 0 2px 12px rgba(63, 81, 181, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    min-height: 140px; /* ensure enough height for icon */
+    transition: box-shadow 0.2s, transform 0.2s;
+    margin: 0 8px;
+    overflow: visible; /* allow icon to overflow if needed */
   }
   
   .grid-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(63, 81, 181, 0.15);
+    transform: translateY(-2px) scale(1.04);
   }
+
+.crown-icon {
+  color: #ffb300;
+  font-size: 2rem;
+  vertical-align: middle;
   
-  .crown-icon {
-    color: #ffb300; /* Guldaktig färg */
-    font-size: 2rem;
-    margin-right: 5px;
-    vertical-align: middle;
-  }
+  line-height: 1;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.10));
+}
   
   .year {
-    font-weight: bold;
+    font-weight: 600;
+    color: #3f51b5;
+    font-size: 1.15rem;
+    margin-bottom: 2px;
+  }
+  
+  .grid-item strong {
     color: #333;
+    font-size: 1.1rem;
+    margin-top: 2px;
   }
   
   /* Responsiv design */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
+    .main-content {
+      padding: 16px;
+      gap: 24px;
+    }
+    .map-card, .summary-card, .table-card {
+      margin-bottom: 16px;
+    }
+    #map {
+      height: 400px;
+    }
     .grid-container {
-      grid-template-columns: repeat(2, 1fr); /* Två kolumner på mindre skärmar */
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Två kolumner på mindre skärmar */
     }
   }
   
-  @media (max-width: 480px) {
+  @media (max-width: 600px) {
+    .main-content {
+      padding: 12px;
+      gap: 16px;
+    }
+    .map-card, .summary-card, .table-card {
+      margin-bottom: 8px;
+      padding: 4px;
+    }
+    #map {
+      height: 300px;
+    }
+    .table-title {
+      font-size: 1.6rem;
+    }
     .grid-container {
-      grid-template-columns: 1fr; /* En kolumn på mobiler */
+      grid-template-columns: repeat(2, 1fr); /* En kolumn på mobiler */
+    }
+    .styled-table th,
+    .styled-table td {
+      padding: 12px;
+      font-size: 0.9rem;
     }
   }
 
   #map {
-    height: 1000px;
+    height: 500px;
     width: 100%;
-    margin: 20px 0;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin: 16px 0 0 0;
   }
  
   .custom-start-icon .material-icons {
-    color: red;
-    font-size: 24px;
+    color: var(--strava-orange) !important; /* Use a vibrant red accent */
+    font-size: 28px;
+    filter: drop-shadow(0 2px 2px rgba(252,76,2,0.18));
+  }
+
+  .main-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #3f51b5, #5c6bc0);
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
   }
   
+  .main-toolbar span {
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: white;
+  }
+
+  .main-content {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
   
+  .map-card, .summary-card, .table-card {
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .map-card:hover, .summary-card:hover, .table-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  
+  .map-card {
+    padding: 24px;
+  }
+  
+  .table-card {
+    padding: 24px;
+  }
+
+  .cr-year-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 2px;
+    width: 100%;
+    overflow: visible;
+  }
+  
+  .year {
+    font-weight: 700;
+    color: #3f51b5;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  
+  .cr-colon {
+    color: #3f51b5;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 2px 0;
+    text-align: center;
+  }
+  
+  .cr-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 2px 0;
+    text-align: center;
+  }
+  
+  .cr-label {
+    font-size: 1.1rem;
+    color: #222;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .grid-item {
+    background: #f5f7fa;
+    border-radius: 16px;
+    padding: 28px 24px 18px 24px; /* more top padding */
+    box-shadow: 0 2px 12px rgba(63, 81, 181, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    min-height: 140px; /* ensure enough height for icon */
+    transition: box-shadow 0.2s, transform 0.2s;
+    margin: 0 8px;
+    overflow: visible; /* allow icon to overflow if needed */
+  }
+  
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 8px 0;
+  }
+
+/* Ensure custom map marker icon is colored */
+.custom-start-icon .material-icons,
+.material-icons.place,
+span.material-icons.place {
+  color: #e53935 !important; /* vibrant red accent */
+  font-size: 28px;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.18));
+}
+
+.toolbar-icon {
+  margin-right: 12px;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+button[mat-icon-button] {
+  margin-left: 8px;
+}
+
+.table-title-icon {
+  color: var(--strava-orange);
+  font-size: 2.2rem;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.year-badge {
+  color: var(--strava-orange);
+  font-size: 1.3rem;
+  margin-right: 4px;
+}
+
+.cr-badge {
+  color: var(--strava-accent);
+  font-size: 1.3rem;
+  margin-right: 4px;
+}
+
+.cr-chip {
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: var(--strava-orange);
+  color: #fff;
+  height: 24px;
+  line-height: 24px;
+}
+
+.cr-value-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
+.segment-icon {
+  color: var(--strava-orange);
+  font-size: 1.2rem;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.effort-badge, .athlete-badge {
+  display: inline-block;
+  background: var(--strava-orange);
+  color: #fff;
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-left: 4px;
+}
+
+mat-chip {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin: 0 2px;
+}
+
+/* Add ripple effect for table rows */
+tr.mat-row {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+tr.mat-row:hover {
+  background: #fff3e6 !important;
+}

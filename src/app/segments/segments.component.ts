@@ -9,13 +9,18 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-segments',
   standalone: true,
   templateUrl: './segments.component.html',
   styleUrls: ['./segments.component.css'],
-  imports: [CommonModule, MatIconModule, MatTableModule, MatSortModule],
+  imports: [CommonModule, MatIconModule, MatTableModule, MatSortModule, MatToolbarModule, MatCardModule, MatChipsModule, MatButtonModule, MatTooltipModule],
 })
 export class SegmentsComponent implements OnInit, AfterViewInit {
   segments: any[] = [];
@@ -35,7 +40,7 @@ export class SegmentsComponent implements OnInit, AfterViewInit {
         console.error('Error loading segment data:', error);
         return throwError(() => new Error('Failed to load segments.json'));
       })
-    ).subscribe((data) => {
+    ).subscribe((data: any[]) => {
       this.segments = data;
       this.dataSource.data = this.segments;
       this.calculateCRsPerYear();
