@@ -1,29 +1,10 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-  
-  thead {
-    background-color: #f4f4f4;
-  }
-  
-  th, td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  /* Stil för rubriken */
+/* Stil för rubriken */
 .table-title {
     text-align: center;
     font-size: 2rem;
@@ -40,7 +21,6 @@ table {
     border-spacing: 0;
     background: white;
     border-radius: 12px;
-    overflow: hidden;
   }
   
   /* Header-stil */
@@ -57,7 +37,7 @@ table {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     font-size: 0.95rem;
   }
-  
+    
   /* Alternativa rader */
   .styled-table tbody tr:nth-child(even) {
     background-color: #f3f3f3;
@@ -103,39 +83,15 @@ table {
   }
   
   /* Ikoner */
-  mat-icon {
-    vertical-align: middle;
-    margin-right: 8px;
-  }
+mat-icon {
+  vertical-align: text-top;
+  overflow: visible;
+}
   
   .styled-table mat-icon {
     font-size: 1.2rem;
     width: 20px;
     height: 20px;
-  }
-  
-  .summary {
-    margin: 20px 0;
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .summary h2 {
-    margin: 0;
-    color: #3f51b5;
-  }
-  
-  .summary ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
-  }
-  
-  .summary li {
-    font-size: 1rem;
-    color: #555;
   }
   
   /* Styling för rubrik */
@@ -168,8 +124,8 @@ table {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 120px;
-    min-height: 140px; /* ensure enough height for icon */
+    min-width: 0px;
+    min-height: 0px; /* ensure enough height for icon */
     transition: box-shadow 0.2s, transform 0.2s;
     margin: 0 8px;
     overflow: visible; /* allow icon to overflow if needed */
@@ -183,10 +139,11 @@ table {
 .crown-icon {
   color: #ffb300;
   font-size: 2rem;
-  vertical-align: middle;
-  
+  vertical-align: top;
   line-height: 1;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.10));
+  overflow: visible;
+  margin-right: 14px;
 }
   
   .year {
@@ -194,12 +151,6 @@ table {
     color: #3f51b5;
     font-size: 1.15rem;
     margin-bottom: 2px;
-  }
-  
-  .grid-item strong {
-    color: #333;
-    font-size: 1.1rem;
-    margin-top: 2px;
   }
   
   /* Responsiv design */
@@ -244,224 +195,189 @@ table {
     }
   }
 
-  #map {
-    height: 500px;
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    margin: 16px 0 0 0;
-  }
- 
-  .custom-start-icon .material-icons {
-    color: var(--strava-orange) !important; /* Use a vibrant red accent */
-    font-size: 28px;
-    filter: drop-shadow(0 2px 2px rgba(252,76,2,0.18));
-  }
-
-  .main-toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(135deg, #3f51b5, #5c6bc0);
-    padding: 0 24px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .main-toolbar span {
-    font-size: 1.4rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: white;
-  }
-
+  /* --- Mobile-first improvements for iPhone and small screens --- */
+@media (max-width: 480px) {
   .main-content {
-    max-width: 1200px;
-    margin: 24px auto;
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    padding: 4px;
+    gap: 8px;
   }
-  
   .map-card, .summary-card, .table-card {
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    background: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
+    padding: 6px;
+    margin-bottom: 6px;
+    border-radius: 10px;
   }
-  
-  .map-card:hover, .summary-card:hover, .table-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  .table-title {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
   }
-  
-  .map-card {
-    padding: 24px;
+  .styled-table th,
+  .styled-table td {
+    padding: 8px 4px;
+    font-size: 0.85rem;
   }
-  
-  .table-card {
-    padding: 24px;
+  .styled-table {
+    font-size: 0.9rem;
+    min-width: 400px;
+    display: block;
+    overflow-x: auto;
+    border-radius: 8px;
   }
-
-  .cr-year-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 2px;
-    width: 100%;
-    overflow: visible;
+  .styled-table thead tr {
+    font-size: 0.95rem;
   }
-  
-  .year {
-    font-weight: 700;
-    color: #3f51b5;
-    font-size: 1.3rem;
-    margin: 0;
-  }
-  
-  .cr-colon {
-    color: #3f51b5;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0 0 2px 0;
-    text-align: center;
-  }
-  
-  .cr-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #222;
-    margin: 0 0 2px 0;
-    text-align: center;
-  }
-  
-  .cr-label {
-    font-size: 1.1rem;
-    color: #222;
-    font-weight: 500;
-    text-align: center;
-    margin: 0;
-  }
-  
-  .grid-item {
-    background: #f5f7fa;
-    border-radius: 16px;
-    padding: 28px 24px 18px 24px; /* more top padding */
-    box-shadow: 0 2px 12px rgba(63, 81, 181, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 120px;
-    min-height: 140px; /* ensure enough height for icon */
-    transition: box-shadow 0.2s, transform 0.2s;
-    margin: 0 8px;
-    overflow: visible; /* allow icon to overflow if needed */
-  }
-  
   .grid-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    padding: 8px 0;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
   }
-
-/* Ensure custom map marker icon is colored */
-.custom-start-icon .material-icons,
-.material-icons.place,
-span.material-icons.place {
-  color: #e53935 !important; /* vibrant red accent */
-  font-size: 28px;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.18));
+  .grid-item {
+    min-width: 0;
+    min-height: 0;
+    padding: 16px 8px 10px 8px;
+    margin: 0;
+    border-radius: 10px;
+  }
+  .year, .cr-label, .cr-value {
+    font-size: 1rem;
+  }
+  .crown-icon, .table-title-icon {
+    font-size: 1.5rem;
+    margin-right: 4px;
+  }
+  .segment-icon, .year-badge, .cr-badge {
+    font-size: 1rem;
+    margin-right: 2px;
+  }
+  .cr-chip, .effort-badge, .athlete-badge {
+    font-size: 0.95rem;
+    padding: 2px 6px;
+    height: 20px;
+    line-height: 20px;
+  }
+  #map {
+    height: 220px;
+    border-radius: 8px;
+    margin: 8px 0 0 0;
+  }
+  .main-toolbar {
+    height: 48px;
+    padding: 0 8px;
+  }
+  .main-toolbar span {
+    font-size: 1.1rem;
+  }
+  button[mat-icon-button] {
+    margin-left: 4px;
+  }
+  .styled-table th.hide-mobile,
+  .styled-table td.hide-mobile {
+    display: none;
+  }
 }
 
-.toolbar-icon {
-  margin-right: 12px;
-  font-size: 2rem;
-  color: #fff;
+@media (min-width: 1400px) {
+  .main-content {
+    max-width: 1600px;
+    padding: 0 64px;
+    gap: 48px;
+  }
+  .map-card, .summary-card, .table-card {
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(63, 81, 181, 0.10);
+    padding: 48px;
+    margin-bottom: 32px;
+  }
+  .table-title {
+    font-size: 2.6rem;
+    margin-bottom: 36px;
+  }
+  .styled-table th,
+  .styled-table td {
+    padding: 24px 20px;
+    font-size: 1.15rem;
+  }
+  .styled-table {
+    font-size: 1.1rem;
+    border-radius: 18px;
+  }
+  .grid-container {
+    gap: 48px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .grid-item {
+    min-width: 0rem;
+    min-height: 0rem;
+    padding: 48px 32px 32px 32px;
+    border-radius: 24px;
+    font-size: 1.2rem;
+  }
+  .year, .cr-label, .cr-value {
+    font-size: 1.5rem;
+  }
+  .crown-icon, .table-title-icon {
+    font-size: 2.8rem;
+    margin-right: 16px;
+  }
+  .segment-icon, .year-badge, .cr-badge {
+    font-size: 1.5rem;
+    margin-right: 8px;
+  }
+  .cr-chip, .effort-badge, .athlete-badge {
+    font-size: 1.2rem;
+    padding: 4px 16px;
+    height: 32px;
+    line-height: 32px;
+  }
+  #map {
+    height: 700px;
+    border-radius: 18px;
+    margin: 32px 0 0 0;
+  }
+  .main-toolbar {
+    height: 80px;
+    padding: 0 48px;
+  }
+  .main-toolbar span {
+    font-size: 2rem;
+  }
+  button[mat-icon-button] {
+    margin-left: 16px;
+  }
 }
 
-.spacer {
-  flex: 1 1 auto;
+@media (min-width: 1800px) {
+  .main-content {
+    max-width: 2000px;
+    padding: 0 120px;
+  }
+  .grid-container {
+    gap: 0px;
+  }
+  .grid-item {
+    min-width: 0px;
+    min-height: 0px;
+    padding: 64px 48px 40px 48px;
+    font-size: 1.3rem;
+  }
 }
 
-button[mat-icon-button] {
-  margin-left: 8px;
+.table-card, .styled-table {
+  overflow-x: auto;
 }
 
-.table-title-icon {
-  color: var(--strava-orange);
-  font-size: 2.2rem;
-  vertical-align: middle;
-  margin-right: 8px;
+.main-content {
+  min-height: 100vh;
+  background: url('/assets/bg-athletes.png') center center/cover no-repeat fixed;
+  position: relative;
+  z-index: 1;
 }
 
-.year-badge {
-  color: var(--strava-orange);
-  font-size: 1.3rem;
-  margin-right: 4px;
-}
-
-.cr-badge {
-  color: var(--strava-accent);
-  font-size: 1.3rem;
-  margin-right: 4px;
-}
-
-.cr-chip {
-  margin-left: 6px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  background: var(--strava-orange);
-  color: #fff;
-  height: 24px;
-  line-height: 24px;
-}
-
-.cr-value-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  margin-bottom: 2px;
-}
-
-.segment-icon {
-  color: var(--strava-orange);
-  font-size: 1.2rem;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.effort-badge, .athlete-badge {
-  display: inline-block;
-  background: var(--strava-orange);
-  color: #fff;
-  border-radius: 12px;
-  padding: 2px 10px;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-left: 4px;
-}
-
-mat-chip {
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  margin: 0 2px;
-}
-
-/* Add ripple effect for table rows */
-tr.mat-row {
-  cursor: pointer;
-  transition: background 0.2s;
-}
-tr.mat-row:hover {
-  background: #fff3e6 !important;
+/* Optional: Add a semi-transparent overlay for readability */
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.7);
+  z-index: -1;
 }

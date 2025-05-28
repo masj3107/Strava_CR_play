@@ -1,24 +1,15 @@
-<mat-toolbar color="primary" class="main-toolbar">
-  <mat-icon class="toolbar-icon">directions_run</mat-icon>
-  <span>Strava CR Play</span>
-  <span class="spacer"></span>
-  <button mat-icon-button matTooltip="Refresh Segments" (click)="ngOnInit()">
-    <mat-icon>refresh</mat-icon>
-  </button>
-</mat-toolbar>
-
 <div class="main-content">
   <mat-card class="map-card">
     <h1 class="table-title">
       <mat-icon class="table-title-icon">map</mat-icon>
-      My Segments
+      My Conquered Segments
     </h1>
     <div id="map"></div>
   </mat-card>
 
   <mat-card class="summary-card">
     <div class="summary-grid">
-      <h2><mat-icon class="crown-icon">emoji_events</mat-icon>CRs Kept Since Year</h2>
+      <h2><mat-icon class="crown-icon">emoji_events</mat-icon> CRs Kept Since Year</h2>
       <div class="grid-container">
         <div *ngFor="let year of crsPerYear | keyvalue" class="grid-item">
           <div class="cr-year-row">
@@ -26,9 +17,9 @@
             <span class="year">{{ year.key }}</span>
           </div>
           <div class="cr-value-row">
-            <mat-icon class="crown-icon">emoji_events</mat-icon>
-            <span class="cr-value">{{ year.value }}</span>
-            <mat-chip color="accent" selected class="cr-chip">CRs</mat-chip>
+            <ng-container *ngFor="let crown of [].constructor(year.value)">
+              <mat-icon class="crown-icon">emoji_events</mat-icon>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -42,65 +33,79 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let segment">
           <mat-chip [color]="segment.type === 'Run' ? 'primary' : 'accent'" selected>
-            <mat-icon *ngIf="segment.type === 'Run'">directions_run</mat-icon>
+            <mat-icon *ngIf="segment.type === 'Run' || segment.type === 'Trail Run'">directions_run</mat-icon>
             <mat-icon *ngIf="segment.type === 'Nordic Ski'">downhill_skiing</mat-icon>
+            <mat-icon *ngIf="segment.type === 'Ride'">directions_bike</mat-icon>
             {{ segment.type }}
           </mat-chip>
         </td>
       </ng-container>
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-        <td mat-cell *matCellDef="let segment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-icon class="segment-icon">flag</mat-icon>
+          Name</th>
+        <td mat-cell *matCellDef="let segment">
           <a [href]="segment.link" target="_blank">{{ segment.name }}</a>
         </td>
       </ng-container>
       <!-- Distance Column -->
       <ng-container matColumnDef="distance_km">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dist (km)</th>
-        <td mat-cell *matCellDef="let segment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-icon class="segment-icon">straighten</mat-icon>
+          Dist (km)
+        </th>
+        <td mat-cell *matCellDef="let segment">
           {{ segment.distance_km }}
         </td>
       </ng-container>
       <!-- Elevation Column -->
       <ng-container matColumnDef="elevation_m">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Elev (m)</th>
-        <td mat-cell *matCellDef="let segment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-icon class="segment-icon">terrain</mat-icon>
+          Elev (m)
+        </th>
+        <td mat-cell *matCellDef="let segment">
           {{ segment.elevation_m }}
         </td>
       </ng-container>
       <!-- Time Column -->
       <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
-        <td mat-cell *matCellDef="let segment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-icon class="segment-icon">timer</mat-icon>
+          Time
+        </th>
+        <td mat-cell *matCellDef="let segment">
           <a [href]="segment.time_link" target="_blank">{{ segment.time }}</a>
         </td>
       </ng-container>
       <!-- Efforts Column -->
       <ng-container matColumnDef="effort_count">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Efforts</th>
-        <td mat-cell *matCellDef="let segment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-icon color="accent">bar_chart</mat-icon>
+          Efforts
+        </th>
+        <td mat-cell *matCellDef="let segment">
           <span class="effort-badge">{{ segment.effort_count }}</span>
         </td>
       </ng-container>
       <!-- Athletes Column -->
       <ng-container matColumnDef="athlete_count">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Athletes</th>
-        <td mat-cell *matCellDef="let segment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-icon color="accent">group</mat-icon>
+          Athletes
+        </th>
+        <td mat-cell *matCellDef="let segment">
           <span class="athlete-badge">{{ segment.athlete_count }}</span>
         </td>
       </ng-container>
       <!-- Date Column -->
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-        <td mat-cell *matCellDef="let segment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-icon class="segment-icon">event</mat-icon>
+          Date
+        </th>
+        <td mat-cell *matCellDef="let segment">
           {{ segment.date }}
         </td>
       </ng-container>
