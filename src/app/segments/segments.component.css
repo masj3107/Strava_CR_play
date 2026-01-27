@@ -137,10 +137,9 @@ mat-icon {
   }
 
 .crown-icon {
-  color: #ffb300;
-  font-size: 2rem;
+  width: 28px;
+  height: 28px;
   vertical-align: top;
-  line-height: 1;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.10));
   overflow: visible;
   margin-right: 14px;
@@ -241,7 +240,8 @@ mat-icon {
     font-size: 1rem;
   }
   .crown-icon, .table-title-icon {
-    font-size: 1.5rem;
+    width: 20px;
+    height: 20px;
     margin-right: 4px;
   }
   .segment-icon, .year-badge, .cr-badge {
@@ -316,7 +316,8 @@ mat-icon {
     font-size: 1.5rem;
   }
   .crown-icon, .table-title-icon {
-    font-size: 2.8rem;
+    width: 40px;
+    height: 40px;
     margin-right: 16px;
   }
   .segment-icon, .year-badge, .cr-badge {

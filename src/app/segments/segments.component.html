@@ -9,7 +9,7 @@
 
   <mat-card class="summary-card">
     <div class="summary-grid">
-      <h2><mat-icon class="crown-icon">emoji_events</mat-icon> CRs Kept Since Year</h2>
+      <h2><img class="crown-icon" src="assets/segmentCrown.svg" alt="Crown"> CRs Kept Since Year</h2>
       <div class="grid-container">
         <div *ngFor="let year of crsPerYear | keyvalue" class="grid-item">
           <div class="cr-year-row">
@@ -18,7 +18,7 @@
           </div>
           <div class="cr-value-row">
             <ng-container *ngFor="let crown of [].constructor(year.value)">
-              <mat-icon class="crown-icon">emoji_events</mat-icon>
+              <img class="crown-icon" src="assets/segmentCrown.svg" alt="Crown">
             </ng-container>
           </div>
         </div>
