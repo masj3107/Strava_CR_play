@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import * as L from 'leaflet';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-segments',
@@ -29,27 +30,36 @@ export class SegmentsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['type', 'name', 'distance_km', 'elevation_m', 'time', 'effort_count', 'athlete_count', 'date'];
   map!: L.Map;
   mapInitialized = false;
+  private segmentLayer = L.layerGroup();
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('assets/segments.json').pipe(
-      catchError(error => {
-        console.error('Error loading segment data:', error);
-        return throwError(() => new Error('Failed to load segments.json'));
-      })
-    ).subscribe((data: any[]) => {
-      this.segments = data;
-      this.dataSource.data = this.segments;
-      this.calculateCRsPerYear();
-      
-      // ✅ Ensure map is initialized before loading polylines
-      if (this.mapInitialized) {
-        this.loadSegments();
-      }
-    });
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          const dataset = this.resolveDataset(params.get('dataset'));
+          const assetPath = `assets/${dataset}.json`;
+          return this.http.get<any[]>(assetPath).pipe(
+            catchError(error => {
+              console.error(`Error loading segment data from ${assetPath}:`, error);
+              return of([] as any[]);
+            })
+          );
+        })
+      )
+      .subscribe((data: any[]) => {
+        this.segments = data;
+        this.dataSource.data = this.segments;
+        this.calculateCRsPerYear();
+
+        if (this.mapInitialized) {
+          this.clearSegments();
+          this.loadSegments();
+        }
+      });
   }
 
   ngAfterViewInit(): void {
@@ -79,6 +89,8 @@ export class SegmentsComponent implements OnInit, AfterViewInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
+
+    this.segmentLayer.addTo(this.map);
   }
 
   private loadSegments(): void {
@@ -103,16 +115,34 @@ export class SegmentsComponent implements OnInit, AfterViewInit {
         });
 
         // ✅ Fix: Ensure polylines are added to the map
-        L.polyline(latlngs, { color: 'blue', weight: 4 }).addTo(this.map)
+        L.polyline(latlngs, { color: 'blue', weight: 4 }).addTo(this.segmentLayer)
           .bindPopup(`<b>${segment.name}</b><br>Distance: ${segment.distance_km} km`);
 
         // ✅ Fix: Ensure start markers are added properly
-        L.marker(startPoint, { icon: startIcon }).addTo(this.map)
+        L.marker(startPoint, { icon: startIcon }).addTo(this.segmentLayer)
           .bindPopup(`<b>Start: ${segment.name}</b>`);
       } else {
         console.warn(`Segment ${segment.name} is missing a polyline.`);
       }
     });
+  }
+
+  private clearSegments(): void {
+    this.segmentLayer.clearLayers();
+  }
+
+  private resolveDataset(datasetParam: string | null): string {
+    if (!datasetParam || datasetParam === 'segments') {
+      return 'segments';
+    }
+
+    const isSafeName = /^[a-zA-Z0-9_-]+$/.test(datasetParam);
+    if (!isSafeName) {
+      console.warn(`Invalid dataset name: ${datasetParam}. Falling back to segments.json.`);
+      return 'segments';
+    }
+
+    return datasetParam;
   }
 
   private decodePolyline(str: string, precision: number = 5): L.LatLngTuple[] {
