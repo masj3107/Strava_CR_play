@@ -60,7 +60,9 @@ describe('SegmentsComponent', () => {
   it('should load segments on init', () => {
     fixture.detectChanges();
 
-    const req = httpTestingController.expectOne('assets/segments.json');
+    const req = httpTestingController.expectOne(request =>
+      /^assets\/segments\.json\?v=\d+$/.test(request.url)
+    );
     req.flush(mockSegments);
 
     expect(component.segments.length).toBe(2);

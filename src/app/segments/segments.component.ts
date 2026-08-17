@@ -41,7 +41,9 @@ export class SegmentsComponent implements OnInit, AfterViewInit {
       .pipe(
         switchMap((params: ParamMap) => {
           const dataset = this.resolveDataset(params.get('dataset'));
-          const assetPath = `assets/${dataset}.json`;
+          // GitHub Pages caches static JSON files. A unique query keeps newly
+          // deployed CR data from being hidden behind a stale browser cache.
+          const assetPath = `assets/${dataset}.json?v=${Date.now()}`;
           return this.http.get<any[]>(assetPath).pipe(
             catchError(error => {
               console.error(`Error loading segment data from ${assetPath}:`, error);
