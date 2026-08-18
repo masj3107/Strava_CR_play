@@ -6,5 +6,6 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'segments', component: SegmentsComponent },
+  { path: 'segments/:dataset', component: SegmentsComponent },
   { path: ':dataset', component: SegmentsComponent },
 ];
