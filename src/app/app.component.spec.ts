@@ -20,10 +20,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Strava_CR_play');
   });
 
-  it('should render title', () => {
+  it('should render routed content without a header', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Strava_CR_play');
+    expect(compiled.querySelector('header')).toBeNull();
+    expect(compiled.querySelector('router-outlet')).not.toBeNull();
   });
 });
